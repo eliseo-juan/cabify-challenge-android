@@ -16,7 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import dev.eliseo.cabify.store.ui.ds.Counter
 import dev.eliseo.cabify.store.ui.ds.Label
-import dev.eliseo.cabify.store.ui.store.DiscountTitleStringRetriever
+import dev.eliseo.cabify.feature.store.DiscountTitleStringRetriever
 
 @Composable
 fun ProductDialogView(
