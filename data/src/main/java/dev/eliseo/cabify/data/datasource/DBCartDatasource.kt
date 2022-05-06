@@ -12,19 +12,19 @@ import javax.inject.Inject
 class DBCartDatasource @Inject constructor(
     private val dataStore: DataStore<Preferences>,
     private val cartAdapter: JsonAdapter<List<String>>
-) : CartDatasource {
+) {
 
     companion object {
         val KEY_CART = stringPreferencesKey("example_counter")
     }
 
-    override suspend fun getCart(): Flow<List<String>> {
+    suspend fun getCart(): Flow<List<String>> {
         return dataStore.data.map {
             it[KEY_CART]?.let { json -> cartAdapter.fromJson(json) } ?: emptyList()
         }
     }
 
-    override suspend fun addProduct(productCode: String) {
+    suspend fun addProduct(productCode: String) {
         dataStore.edit {
             val currentList =
                 it[KEY_CART]?.let { json -> cartAdapter.fromJson(json) } ?: emptyList()
@@ -33,7 +33,7 @@ class DBCartDatasource @Inject constructor(
         }
     }
 
-    override suspend fun removeProduct(productCode: String) {
+    suspend fun removeProduct(productCode: String) {
         dataStore.edit {
             val currentList =
                 it[KEY_CART]?.let { json -> cartAdapter.fromJson(json) } ?: emptyList()

@@ -3,14 +3,19 @@ package dev.eliseo.cabify.store.ui.product_dialog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
+import dev.eliseo.cabify.domain.usecase.GetProductUseCase
 import dev.eliseo.cabify.store.libbase.BaseViewModel
 import dev.eliseo.cabify.store.libbase.UiEffect
 import dev.eliseo.cabify.store.libbase.UiEvent
 import dev.eliseo.cabify.store.libbase.UiState
 import javax.inject.Inject
 
+
+
 @HiltViewModel
-class ProductDialogViewModel @Inject constructor() : BaseViewModel<
+class ProductDialogViewModel @Inject constructor(
+    val getProductUseCase: GetProductUseCase
+) : BaseViewModel<
         ProductDialogViewModel.State,
         ProductDialogViewModel.Event,
         ProductDialogViewModel.Effect,
@@ -20,7 +25,7 @@ class ProductDialogViewModel @Inject constructor() : BaseViewModel<
 
     override suspend fun extraInitializationSteps() {
         super.extraInitializationSteps()
-
+        val product = getProductUseCase("productCode")
     }
 
     override suspend fun handleEvent(event: Event) {
@@ -45,5 +50,4 @@ class ProductDialogViewModel @Inject constructor() : BaseViewModel<
     sealed class Effect : UiEffect {
         object Close : Effect()
     }
-
 }

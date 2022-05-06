@@ -5,17 +5,22 @@ import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
+import javax.inject.Inject
 
-class ProductRepositoryImpl(
+class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: NetworkProductDatasource,
 ) : ProductRepository {
+
+    private var products: List<Product> = emptyList()
+
     override suspend fun getProducts(): List<Product> {
-        return productDataSource.getAllProducts().firstOrNull() ?: emptyList()
+
+        return products.takeIf { it.isNotEmpty() } ?: productDataSource.getAllProducts().also {
+            products = it
+        }
     }
 
     override suspend fun getProduct(id: String): Product? {
-        return productDataSource.getAllProducts().first().firstOrNull { it.code == id }
+        return getProducts().firstOrNull { it.code == id }
     }
-
-
 }

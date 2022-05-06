@@ -11,7 +11,6 @@ class NetworkProductDatasource @Inject constructor(
     private val productAPIService: ProductAPIService,
 ) : ProductMapper {
 
-    suspend fun getAllProducts(): Flow<List<Product>> = callbackFlow {
-        trySend(productAPIService.getProducts().map { it.toProduct() })
-    }
+    suspend fun getAllProducts(): List<Product> =
+        productAPIService.getProducts().map { it.toProduct() }
 }

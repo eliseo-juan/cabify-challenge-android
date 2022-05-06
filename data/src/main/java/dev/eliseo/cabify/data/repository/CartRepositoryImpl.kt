@@ -6,6 +6,7 @@ import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.repository.CartRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CartRepositoryImpl @Inject constructor(
@@ -14,12 +15,12 @@ class CartRepositoryImpl @Inject constructor(
 ) : CartRepository {
 
     override suspend fun getCartProducts(): Flow<List<Product>> {
-        return cartDatasource.getCart()
-            .combine(productDatasource.getAllProducts()) { cart, products ->
-                cart.map { cartProductCode ->
-                    products.first { product -> product.code == cartProductCode }
-                }
+        val products = productDatasource.getAllProducts()
+        return cartDatasource.getCart().map {
+            it.map { cartProductCode ->
+                products.first { product -> product.code == cartProductCode }
             }
+        }
     }
 
     override suspend fun addProduct(product: Product) {

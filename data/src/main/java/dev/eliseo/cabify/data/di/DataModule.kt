@@ -44,7 +44,7 @@ class DataModule {
     fun provideCartDatasource(
         dataStore: DataStore<Preferences>,
         moshi: Moshi
-    ): CartDatasource {
+    ): DBCartDatasource {
         val listMyData: Type = Types.newParameterizedType(
             MutableList::class.java,
             String::class.java
@@ -55,7 +55,7 @@ class DataModule {
     @Provides
     fun provideProductDatasource(
         productAPIService: ProductAPIService,
-    ): ProductDatasource = NetworkProductDatasource(productAPIService)
+    ): NetworkProductDatasource = NetworkProductDatasource(productAPIService)
 
     @Provides
     @Singleton
