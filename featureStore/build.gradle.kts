@@ -8,7 +8,8 @@ import plugins.addTestDependencies
 
 plugins {
     id("com.android.library")
-    id("my-android-plugin")
+    id("plugin_library")
+    id("plugin_library_compose")
 }
 
 addCoreDependencies()
@@ -23,4 +24,5 @@ dependencies {
     implementation(project(Module.libBase))
     implementation(project(Module.Core.ds))
     implementation(project(Module.Core.domain))
+    implementation(project(Module.Core.navigation))
 }

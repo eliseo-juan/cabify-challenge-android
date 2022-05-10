@@ -10,17 +10,11 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CartRepositoryImpl @Inject constructor(
-    private val productDatasource: NetworkProductDatasource,
     private val cartDatasource: DBCartDatasource
 ) : CartRepository {
 
-    override suspend fun getCartProducts(): Flow<List<Product>> {
-        val products = productDatasource.getAllProducts()
-        return cartDatasource.getCart().map {
-            it.map { cartProductCode ->
-                products.first { product -> product.code == cartProductCode }
-            }
-        }
+    override suspend fun getCartProducts(): Flow<List<String>> {
+        return cartDatasource.getCart()
     }
 
     override suspend fun addProduct(product: Product) {

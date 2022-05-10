@@ -10,6 +10,7 @@ object Module {
 
     object Core {
         const val ds = ":coreDS"
+        const val navigation = ":coreNavigation"
         const val domain = ":domain"
         const val data = ":data"
     }

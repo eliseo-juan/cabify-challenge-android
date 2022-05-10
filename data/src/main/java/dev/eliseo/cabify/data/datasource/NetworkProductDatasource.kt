@@ -12,5 +12,5 @@ class NetworkProductDatasource @Inject constructor(
 ) : ProductMapper {
 
     suspend fun getAllProducts(): List<Product> =
-        productAPIService.getProducts().map { it.toProduct() }
+        productAPIService.getProducts().products.map { it.toProduct() }
 }

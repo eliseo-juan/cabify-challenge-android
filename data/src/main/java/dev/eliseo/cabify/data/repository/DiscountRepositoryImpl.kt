@@ -1,15 +1,15 @@
 package dev.eliseo.cabify.data.repository
 
+import dev.eliseo.cabify.data.datasource.NetworkDiscountDatasource
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.repository.DiscountRepository
+import javax.inject.Inject
 
-class DiscountRepositoryImpl : DiscountRepository {
-
-    override suspend fun getDiscounts(): List<Discount> {
-        TODO("Not yet implemented")
-    }
+class DiscountRepositoryImpl @Inject constructor(
+    private val discountDatasource: NetworkDiscountDatasource
+) : DiscountRepository {
 
     override suspend fun getDiscount(productCode: String): Discount? {
-        TODO("Not yet implemented")
+        return discountDatasource.getDiscount(productCode)
     }
 }

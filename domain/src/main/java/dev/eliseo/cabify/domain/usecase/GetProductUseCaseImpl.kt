@@ -2,8 +2,9 @@ package dev.eliseo.cabify.domain.usecase
 
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.repository.ProductRepository
+import javax.inject.Inject
 
-class GetProductUseCaseImpl(
+class GetProductUseCaseImpl @Inject constructor(
     private val productRepository: ProductRepository
 ) : GetProductUseCase {
     

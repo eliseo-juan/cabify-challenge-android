@@ -3,8 +3,8 @@ import plugins.addCoroutinesDependencies
 
 plugins {
     id("com.android.library")
-    id("my-android-plugin")
+    id("plugin_library")
 }
 
-addCoroutinesDependencies()
+addHiltDependencies()
 addCoroutinesDependencies()

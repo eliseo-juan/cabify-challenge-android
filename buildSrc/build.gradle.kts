@@ -5,9 +5,13 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("my-android-plugin") {
-            id = "my-android-plugin"
+        register("plugin_library") {
+            id = "plugin_library"
             implementationClass = "plugins.AndroidModulePlugin"
+        }
+        register("plugin_library_compose") {
+            id = "plugin_library_compose"
+            implementationClass = "plugins.ComposableAndroidModulePlugin"
         }
     }
 }

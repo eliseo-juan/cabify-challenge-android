@@ -1,9 +1,13 @@
 package dev.eliseo.cabify.feature.store
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,10 +17,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import dev.eliseo.cabify.core.ds.Counter
+import dev.eliseo.cabify.core.ds.Label
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
-import dev.eliseo.cabify.store.ui.ds.Counter
-import dev.eliseo.cabify.store.ui.ds.Label
 import java.text.NumberFormat
 import java.util.*
 
@@ -24,29 +28,39 @@ import java.util.*
 fun StoreRow(
     modifier: Modifier = Modifier,
     product: Product,
-    discount: Discount? = null
+    discount: Discount? = null,
+    onClick: (() -> Unit)?
 ) {
-    Surface() {
-        Row(
-            modifier = modifier
-                .height(128.dp)
+    Card(
+        modifier = modifier
+            .padding(8.dp),
+        shape = MaterialTheme.shapes.medium
+    ) {
+        Column(
+            modifier = Modifier
+                .clickable(
+                    enabled = onClick != null,
+                    onClick = { onClick?.invoke() }
+                )
+                .wrapContentHeight()
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(16.dp),
         ) {
             AsyncImage(
                 modifier = Modifier
+                    .clip(MaterialTheme.shapes.medium)
                     .fillMaxHeight()
-                    .aspectRatio(1f)
-                    .clip(MaterialTheme.shapes.large),
+                    .aspectRatio(1f),
                 model = product.imageUrl,
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
+                verticalArrangement = Arrangement.SpaceAround,
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -55,8 +69,6 @@ fun StoreRow(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
@@ -65,29 +77,16 @@ fun StoreRow(
                         }.format(product.price),
                         style = MaterialTheme.typography.h6
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
                     if (discount != null) {
+                        Spacer(modifier = Modifier.width(4.dp))
                         Label(
-                            text = with(object : DiscountTitleStringRetriever {}) {
-                                discount.getTitle(LocalContext.current)
-                            },
+                            text = "Promo",
+                            icon = Icons.Default.Star
                         )
                     }
                 }
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .weight(1f, true)
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    Counter()
-                }
-            }
 
+            }
         }
     }
 }
@@ -105,5 +104,5 @@ fun StoreRowPreview() {
             imageUrl = "https://brandemia.org/sites/default/files/inline/images/cabify_logo_nuevo_2.png"
         ),
         discount = Discount.TakeXGetY(2, 1),
-    )
+    ) {}
 }

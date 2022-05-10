@@ -5,5 +5,5 @@ import dev.eliseo.cabify.domain.model.Product
 import kotlinx.coroutines.flow.Flow
 
 interface GetProductWithDiscountsListUseCase {
-    operator fun invoke(): Flow<Map<Product, Discount?>>
+    suspend operator fun invoke(): Map<Product, Discount?>
 }

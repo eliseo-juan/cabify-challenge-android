@@ -5,18 +5,27 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.eliseo.cabify.data.datasource.DBCartDatasource
+import dev.eliseo.cabify.data.datasource.NetworkDiscountDatasource
 import dev.eliseo.cabify.data.datasource.NetworkProductDatasource
+import dev.eliseo.cabify.data.repository.CartRepositoryImpl
+import dev.eliseo.cabify.data.repository.DiscountRepositoryImpl
+import dev.eliseo.cabify.data.repository.ProductRepositoryImpl
 import dev.eliseo.cabify.data.service.ProductAPIService
+import dev.eliseo.cabify.domain.repository.CartRepository
+import dev.eliseo.cabify.domain.repository.DiscountRepository
+import dev.eliseo.cabify.domain.repository.ProductRepository
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 import javax.inject.Singleton
 
@@ -26,6 +35,31 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun provideGson(): Gson {
+        return Gson()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(gson: Gson): Retrofit {
+
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+
+        return Retrofit.Builder()
+            .client(client)
+            .baseUrl("https://gist.githubusercontent.com/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+    }
+
+    @Provides
+    fun provideProductAPIService(retrofit: Retrofit): ProductAPIService =
+        retrofit.create(ProductAPIService::class.java)
+
+
+    @Provides
     fun provideCartDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             produceFile = {
@@ -35,21 +69,11 @@ class DataModule {
     }
 
     @Provides
-    @Singleton
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder().build()
-    }
-
-    @Provides
     fun provideCartDatasource(
         dataStore: DataStore<Preferences>,
-        moshi: Moshi
+        gson: Gson
     ): DBCartDatasource {
-        val listMyData: Type = Types.newParameterizedType(
-            MutableList::class.java,
-            String::class.java
-        )
-        return DBCartDatasource(dataStore, moshi.adapter(listMyData))
+        return DBCartDatasource(dataStore, gson)
     }
 
     @Provides
@@ -57,17 +81,32 @@ class DataModule {
         productAPIService: ProductAPIService,
     ): NetworkProductDatasource = NetworkProductDatasource(productAPIService)
 
+
+    @Provides
+    fun provideDiscountDatasource(): NetworkDiscountDatasource =
+        NetworkDiscountDatasource()
+
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://gist.githubusercontent.com/palcalde/6c19259bd32dd6aafa327fa557859c2f/raw/ba51779474a150ee4367cda4f4ffacdcca479887/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
+    fun provideProductRepository(
+        productDataSource: NetworkProductDatasource
+    ): ProductRepository {
+        return ProductRepositoryImpl(productDataSource)
     }
 
     @Provides
-    fun provideProductAPIService(retrofit: Retrofit): ProductAPIService =
-        retrofit.create(ProductAPIService::class.java)
+    @Singleton
+    fun provideDiscountRepository(
+        discountDatasource: NetworkDiscountDatasource
+    ): DiscountRepository {
+        return DiscountRepositoryImpl(discountDatasource)
+    }
 
+    @Provides
+    @Singleton
+    fun provideCartRepository(
+        cartDatasource: DBCartDatasource
+    ): CartRepository {
+        return CartRepositoryImpl(cartDatasource)
+    }
 }

@@ -16,22 +16,12 @@ abstract class BaseFragment<
         State : UiState,
         Event : UiEvent,
         Effect : UiEffect,
-        ViewModel : BaseViewModel<State, Event, Effect>> : Fragment() {
+        ViewModel : BaseViewModel<State, Event>> : Fragment() {
 
     @Inject
     lateinit var themeProvider: ThemeProvider
 
     protected abstract val viewModel: ViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.effect.collect {
-                handleEffect(it)
-            }
-        }
-    }
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -48,6 +38,4 @@ abstract class BaseFragment<
 
     @Composable
     protected abstract fun RenderViewState(state: State)
-
-    protected abstract fun handleEffect(effect: Effect)
 }

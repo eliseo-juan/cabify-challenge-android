@@ -1,27 +1,22 @@
 package plugins
 
 import ConfigData
-import com.android.build.gradle.BaseExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-class AndroidModulePlugin : Plugin<Project> {
-
-    companion object {
-        const val implementation = "implementation"
-    }
+open class AndroidModulePlugin : Plugin<Project>, AndroidExtensionProvider {
 
     override fun apply(project: Project) {
 
         project.plugins.apply {
             apply("kotlin-android")
             apply("kotlin-kapt")
+            apply("dagger.hilt.android.plugin")
         }
 
-        val androidExtension = project.extensions.getByName("android") as? BaseExtension
-        androidExtension?.apply {
+        getAndroidExtension(project)?.apply {
             compileSdkVersion = ConfigData.compileSdkVersion
             buildToolsVersion = ConfigData.buildToolsVersion
 
@@ -59,5 +54,6 @@ class AndroidModulePlugin : Plugin<Project> {
             }
         }
 
+        project.addHiltDependencies()
     }
 }

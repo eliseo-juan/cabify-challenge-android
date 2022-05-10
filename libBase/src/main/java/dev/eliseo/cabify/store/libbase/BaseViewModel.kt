@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<
         State : UiState,
         Event : UiEvent,
-        Effect : UiEffect,
         > : ViewModel() {
 
     private val initialState: State by lazy { createInitialState() }
@@ -29,18 +28,10 @@ abstract class BaseViewModel<
     private val _event: MutableSharedFlow<Event> = MutableSharedFlow()
     val event = _event.asSharedFlow()
 
-    private val _effect: Channel<Effect> = Channel()
-    val effect = _effect.receiveAsFlow()
-
     init {
         subscribeEvents()
-        viewModelScope.launch {
-            extraInitializationSteps()
-        }
     }
-
-    protected open suspend fun extraInitializationSteps() {}
-
+    
     private fun subscribeEvents() {
         viewModelScope.launch {
             event.collect {
@@ -59,10 +50,5 @@ abstract class BaseViewModel<
     fun setEvent(event: Event) {
         val newEvent = event
         viewModelScope.launch { _event.emit(newEvent) }
-    }
-
-    protected fun setEffect(builder: () -> Effect) {
-        val effectValue = builder()
-        viewModelScope.launch { _effect.send(effectValue) }
     }
 }
