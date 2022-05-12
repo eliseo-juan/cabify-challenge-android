@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dev.eliseo.cabify.core.ds.Counter
 import dev.eliseo.cabify.core.ds.Label
+import dev.eliseo.cabify.core.presentation.CurrencyRetriever
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
 import java.text.NumberFormat
@@ -72,9 +73,9 @@ fun StoreRow(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = NumberFormat.getCurrencyInstance().also {
-                            it.currency = Currency.getInstance(product.currencyCode)
-                        }.format(product.price),
+                        text = with(object : CurrencyRetriever {}) {
+                            product.price.getWhitCurrencyFormat(product.currencyCode)
+                        },
                         style = MaterialTheme.typography.h6
                     )
                     if (discount != null) {
@@ -98,7 +99,6 @@ fun StoreRowPreview() {
         product = Product(
             "VOUCHER",
             "Cabify Voucher",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             5.0,
             currencyCode = "EUR",
             imageUrl = "https://brandemia.org/sites/default/files/inline/images/cabify_logo_nuevo_2.png"

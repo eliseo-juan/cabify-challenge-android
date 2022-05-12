@@ -17,12 +17,12 @@ class CartRepositoryImpl @Inject constructor(
         return cartDatasource.getCart()
     }
 
-    override suspend fun addProduct(product: Product) {
-        cartDatasource.addProduct(product.code)
+    override suspend fun addProduct(productCode: String) {
+        cartDatasource.addProduct(productCode)
     }
 
-    override suspend fun removeProduct(product: Product) {
-        cartDatasource.removeProduct(product.code)
+    override suspend fun removeProduct(productCode: String) {
+        cartDatasource.removeProduct(productCode)
     }
 
 }

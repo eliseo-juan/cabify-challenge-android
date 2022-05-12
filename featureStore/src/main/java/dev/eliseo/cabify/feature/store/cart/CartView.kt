@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dev.eliseo.cabify.core.ds.Divider
+import dev.eliseo.cabify.core.presentation.CurrencyRetriever
 import dev.eliseo.cabify.domain.dto.CartItem
 import dev.eliseo.cabify.store.libbase.ViewModelScreen
 import java.text.NumberFormat
@@ -28,10 +29,7 @@ fun CartView(
     viewModel: CartViewModel
 ) {
     ViewModelScreen(
-        viewModel = viewModel,
-        onInitialized = {
-            viewModel.setEvent(CartViewModel.Event.OnLoaded)
-        }
+        viewModel = viewModel
     ) { state ->
         CartView(state) {
             viewModel.setEvent(it)
@@ -55,7 +53,9 @@ fun CartView(
         )
         Divider()
         LazyColumn(
-            contentPadding = PaddingValues(8.dp)
+            contentPadding =
+            if (state.cart.isEmpty()) PaddingValues(0.dp)
+            else PaddingValues(8.dp)
         ) {
             items(state.cart) { item ->
                 CartItemView(
@@ -83,12 +83,12 @@ fun CartHeaderView(
     ) {
         Text(
             text = "Total",
-            style = MaterialTheme.typography.body1
+            style = MaterialTheme.typography.h6
         )
         Text(
-            text = NumberFormat.getCurrencyInstance().also {
-                it.currency = Currency.getInstance(state.currencyCode)
-            }.format(state.price),
+            text = with(object : CurrencyRetriever {}) {
+                state.price.getWhitCurrencyFormat(state.currencyCode)
+            },
             style = MaterialTheme.typography.h6
         )
     }
@@ -137,10 +137,9 @@ fun CartItemView(
                 .weight(1f, true)
         )
         Text(
-            text = NumberFormat.getCurrencyInstance().also {
-                it.currency = Currency.getInstance(item.product.currencyCode)
-            }.format(item.product.price),
-            style = MaterialTheme.typography.body1,
+            text = with(object : CurrencyRetriever {}) {
+                item.product.price.getWhitCurrencyFormat(item.product.currencyCode)
+            }
         )
     }
 }

@@ -20,7 +20,6 @@ import javax.inject.Inject
 class StoreViewModel @Inject constructor(
     private val navigationManager: NavigationManager,
     private val getProductWithDiscountsListUseCase: GetProductWithDiscountsListUseCase,
-    private val cartRepository: CartRepository,
 ) : BaseViewModel<
         StoreViewModel.State,
         StoreViewModel.Event
@@ -32,9 +31,7 @@ class StoreViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            Event.OnLoaded -> extraInitializationSteps()
             is Event.ProductClicked -> {
-                cartRepository.addProduct(event.product)
                 navigationManager.navigate(
                     ProductDetailNavigation.productDetailDialog(productId = event.product.code)
                 )
@@ -42,7 +39,8 @@ class StoreViewModel @Inject constructor(
         }
     }
 
-    private suspend fun extraInitializationSteps() {
+    override suspend fun extraInitializationSteps() {
+        super.extraInitializationSteps()
         val productsWithDiscounts = getProductWithDiscountsListUseCase()
         setState { copy(isLoading = false, products = productsWithDiscounts) }
     }
@@ -53,7 +51,6 @@ class StoreViewModel @Inject constructor(
     ) : UiState
 
     sealed class Event : UiEvent {
-        object OnLoaded : Event()
         data class ProductClicked(val product: Product) : Event()
         object OnGoToCheckout : Event()
     }

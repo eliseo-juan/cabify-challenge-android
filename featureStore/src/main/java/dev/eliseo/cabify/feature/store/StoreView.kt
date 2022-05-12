@@ -19,6 +19,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,8 +33,7 @@ fun StoreView(
     viewModel: StoreViewModel
 ) {
     ViewModelScreen(
-        viewModel = viewModel,
-        onInitialized = { viewModel.setEvent(StoreViewModel.Event.OnLoaded) }
+        viewModel = viewModel
     ) { state ->
         StoreView(state) { event ->
             viewModel.setEvent(event)
@@ -51,15 +52,19 @@ private fun StoreView(
             TopAppBar(
                 modifier = Modifier,
                 contentPadding = PaddingValues(0.dp),
+                contentColor = MaterialTheme.colors.primary,
+                backgroundColor = MaterialTheme.colors.surface
             ) {
                 Text(
                     modifier = Modifier
                         .padding(16.dp),
                     text = "Cabify Store",
-                    color = MaterialTheme.colors.onPrimary,
                 )
             }
         },
+        scaffoldState = rememberBottomSheetScaffoldState(
+            bottomSheetState = rememberBottomSheetState(BottomSheetValue.Expanded),
+        ),
         sheetContent = {
             CartView(viewModel = hiltViewModel())
         },

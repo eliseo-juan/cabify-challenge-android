@@ -1,5 +1,6 @@
 package dev.eliseo.cabify.feature.store.cart
 
+import androidx.navigation.NavBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.eliseo.cabify.core.navigation.NavigationManager
 import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation
@@ -21,18 +22,20 @@ class CartViewModel @Inject constructor(
 
     override fun createInitialState(): State = State()
 
+    override suspend fun extraInitializationSteps() {
+        super.extraInitializationSteps()
+        getCartListUseCase().collect {
+            setState {
+                copy(
+                    cart = it,
+                    price = getCartPriceUseCase(it)
+                )
+            }
+        }
+    }
+
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            is Event.OnLoaded -> {
-                getCartListUseCase().collect {
-                    setState {
-                        copy(
-                            cart = it,
-                            price = getCartPriceUseCase(it)
-                        )
-                    }
-                }
-            }
             is Event.OnItemClicked -> navigationManager.navigate(
                 ProductDetailNavigation.productDetailDialog(productId = event.product.code)
             )
@@ -46,7 +49,6 @@ class CartViewModel @Inject constructor(
     ) : UiState
 
     sealed class Event: UiEvent{
-        object OnLoaded : Event()
         data class OnItemClicked(val product: Product) : Event()
     }
 }

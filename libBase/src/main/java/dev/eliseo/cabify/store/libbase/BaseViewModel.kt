@@ -31,6 +31,16 @@ abstract class BaseViewModel<
     init {
         subscribeEvents()
     }
+
+    fun init() {
+        viewModelScope.launch {
+            extraInitializationSteps()
+        }
+    }
+
+    open suspend fun extraInitializationSteps() {
+
+    }
     
     private fun subscribeEvents() {
         viewModelScope.launch {

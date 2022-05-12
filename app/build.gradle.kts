@@ -31,6 +31,7 @@ dependencies {
     implementation(project(Module.Core.domain))
     implementation(project(Module.Core.data))
     implementation(project(Module.Core.navigation))
+    implementation(project(Module.Core.presentation))
     implementation(project(Module.Core.ds))
     implementation(project(Module.Feature.store))
 

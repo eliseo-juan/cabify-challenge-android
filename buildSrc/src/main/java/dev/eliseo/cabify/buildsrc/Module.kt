@@ -13,5 +13,6 @@ object Module {
         const val navigation = ":coreNavigation"
         const val domain = ":domain"
         const val data = ":data"
+        const val presentation = ":corePresentation"
     }
 }

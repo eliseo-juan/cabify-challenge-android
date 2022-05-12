@@ -39,4 +39,32 @@ class DomainModule {
             discountRepository = discountRepository,
             cartRepository = cartRepository
         )
+
+    @Provides
+    fun provideGetCartListItemUseCase(
+        productRepository: ProductRepository,
+        discountRepository: DiscountRepository,
+        cartRepository: CartRepository,
+    ): GetCartListItemUseCase =
+        GetCartListItemUseCaseImpl(
+            productRepository = productRepository,
+            discountRepository = discountRepository,
+            cartRepository = cartRepository
+        )
+
+    @Provides
+    fun provideAddProductToCartUseCase(
+        cartRepository: CartRepository,
+    ): AddProductToCartUseCase =
+        AddProductToCartUseCaseImpl(
+            cartRepository = cartRepository
+        )
+
+    @Provides
+    fun provideRemoveProductToCartUseCase(
+        cartRepository: CartRepository,
+    ): RemoveProductToCartUseCase =
+        RemoveProductToCartUseCaseImpl(
+            cartRepository = cartRepository
+        )
 }

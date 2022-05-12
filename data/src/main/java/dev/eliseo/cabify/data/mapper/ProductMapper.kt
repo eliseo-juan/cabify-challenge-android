@@ -9,7 +9,6 @@ interface ProductMapper {
         return Product(
             code = code,
             name = name,
-            description = (object : FakeDataProvider {}).getFakeDescription(code),
             price = price,
             currencyCode = (object : FakeDataProvider {}).getFakeCurrencyCode(code),
             imageUrl = (object : FakeDataProvider {}).getFakeImageUrl(code),

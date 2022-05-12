@@ -25,6 +25,5 @@ class GetCartListUseCaseImpl @Inject constructor(
                     )
                 }
         }
-
     }
 }

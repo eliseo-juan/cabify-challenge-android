@@ -52,6 +52,8 @@ fun Project.addComposeDependencies() {
         implementation("androidx.activity:activity-compose:1.4.0")
         implementation("androidx.navigation:navigation-compose:2.4.2")
         implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+        implementation("androidx.compose.material:material-icons-extended:${Version.compose}")
+        implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.7-alpha")
         debugImplementation("androidx.compose.ui:ui-tooling:${Version.compose}")
     }
 }
