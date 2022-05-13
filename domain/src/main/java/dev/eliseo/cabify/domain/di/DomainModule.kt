@@ -67,4 +67,8 @@ class DomainModule {
         RemoveProductToCartUseCaseImpl(
             cartRepository = cartRepository
         )
+
+    @Provides
+    fun provideGetSuggestionUseCase(): GetSuggestionUseCase =
+        GetSuggestionByMinValueUseCaseImpl()
 }

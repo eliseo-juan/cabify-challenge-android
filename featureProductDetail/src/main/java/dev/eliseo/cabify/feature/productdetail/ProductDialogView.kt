@@ -24,6 +24,7 @@ import dev.eliseo.cabify.core.ds.Counter
 import dev.eliseo.cabify.core.ds.Divider
 import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
 import dev.eliseo.cabify.core.presentation.retriever.DiscountTitleStringRetriever
+import dev.eliseo.cabify.core.presentation.view.DiscountContainerView
 import dev.eliseo.cabify.domain.dto.ProductDetails
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
@@ -155,37 +156,6 @@ fun PriceContainerView(
         color = MaterialTheme.colors.primary,
         style = MaterialTheme.typography.h4
     )
-}
-
-@Composable
-fun DiscountContainerView(
-    modifier: Modifier = Modifier,
-    discount: Discount
-) {
-    Row(
-        modifier = modifier
-            .clip(MaterialTheme.shapes.large)
-            .background(MaterialTheme.colors.primary)
-            .padding(vertical = 8.dp, horizontal = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            modifier = Modifier
-                .size(24.dp),
-            imageVector = Icons.Outlined.Star,
-            contentDescription = null,
-            tint = MaterialTheme.colors.onPrimary
-        )
-        Spacer(modifier = Modifier.padding(4.dp))
-        Text(
-            modifier = Modifier,
-            text = with(object : DiscountTitleStringRetriever {}) {
-                discount.getTitle(LocalContext.current)
-            },
-            color = MaterialTheme.colors.onPrimary,
-            style = MaterialTheme.typography.body2
-        )
-    }
 }
 
 @Preview(showBackground = false)

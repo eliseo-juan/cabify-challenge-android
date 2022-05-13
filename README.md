@@ -5,9 +5,9 @@ Product specifications are detailed here: [CHALLENGE.md](.github/CHALLENGE.md)
 
 ## Solution
 <p float="left">
-  <img src=".github/screenshot/Screenshot_20220513-215817.png" width="100" />
-  <img src=".github/screenshot/Screenshot_20220513-215825.png" width="100" /> 
-  <img src=".github/screenshot/Screenshot_20220513-215854.png" width="100" />
+  <img src=".github/screenshot/1store.png" width="200" />
+  <img src=".github/screenshot/2product.png" width="200" /> 
+  <img src=".github/screenshot/3checkout.png" width="200" />
 </p>
 
 ## Architecture

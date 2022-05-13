@@ -2,4 +2,6 @@
 <resources>
     <string name="checkout_title">Checkout</string>
     <string name="checkout_cta_pay">Proceed to payment</string>
+    <string name="checkout_suggestion">Suggestion: Add <b>%1$d</b> items to get a discount!</string>
+    <string name="checkout_suggestion_add">Add to cart</string>
 </resources>

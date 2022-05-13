@@ -36,6 +36,18 @@ class DBCartDatasource @Inject constructor(
         }
     }
 
+    suspend fun addProducts(productCode: String, quantity: Int) {
+        dataStore.edit {
+            val currentList: List<String> =
+                it[KEY_CART]?.let { json -> gson.fromJson(json, typeAdapter) } ?: emptyList()
+            it[KEY_CART] = gson.toJson(currentList.toMutableList().apply {
+                addAll((1..quantity).map {
+                    productCode
+                })
+            })
+        }
+    }
+
     suspend fun removeProduct(productCode: String) {
         dataStore.edit {
             val currentList: List<String> =
