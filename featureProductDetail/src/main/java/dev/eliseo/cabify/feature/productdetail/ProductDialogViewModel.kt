@@ -3,8 +3,10 @@ package dev.eliseo.cabify.feature.productdetail
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation.KEY_PRODUCT_ID
-import dev.eliseo.cabify.domain.dto.CartItem
-import dev.eliseo.cabify.domain.usecase.*
+import dev.eliseo.cabify.domain.dto.ProductDetails
+import dev.eliseo.cabify.domain.usecase.AddProductToCartUseCase
+import dev.eliseo.cabify.domain.usecase.GetCartListItemUseCase
+import dev.eliseo.cabify.domain.usecase.RemoveProductToCartUseCase
 import dev.eliseo.cabify.store.libbase.BaseViewModel
 import dev.eliseo.cabify.store.libbase.UiEvent
 import dev.eliseo.cabify.store.libbase.UiState
@@ -29,7 +31,7 @@ class ProductDialogViewModel @Inject constructor(
     override suspend fun extraInitializationSteps() {
         super.extraInitializationSteps()
         getCartListItemUseCase(productId).collect {
-            setState { copy(cartItem = it) }
+            setState { copy(productDetails = it) }
         }
     }
 
@@ -42,7 +44,7 @@ class ProductDialogViewModel @Inject constructor(
 
     data class State(
         val isLoading: Boolean = false,
-        val cartItem: CartItem? = null,
+        val productDetails: ProductDetails? = null,
     ) : UiState
 
     sealed class Event : UiEvent {

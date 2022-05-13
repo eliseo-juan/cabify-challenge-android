@@ -1,28 +1,21 @@
 package dev.eliseo.cabify.feature.store.cart
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import dev.eliseo.cabify.core.ds.Divider
-import dev.eliseo.cabify.core.presentation.CurrencyRetriever
-import dev.eliseo.cabify.domain.dto.CartItem
+import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
+import dev.eliseo.cabify.core.presentation.view.CartItemView
+import dev.eliseo.cabify.core.presentation.view.SummaryView
 import dev.eliseo.cabify.store.libbase.ViewModelScreen
-import java.text.NumberFormat
-import java.util.*
 
 @Composable
 fun CartView(
@@ -46,10 +39,13 @@ fun CartView(
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        CartHeaderView(
+        SummaryView(
             modifier = Modifier
-                .height(64.dp),
-            state
+                .height(64.dp)
+                .padding(horizontal = 16.dp),
+            price = with(object : CurrencyRetriever {}) {
+                state.price.getWhitCurrencyFormat()
+            }
         )
         Divider()
         LazyColumn(
@@ -67,87 +63,6 @@ fun CartView(
             }
         }
     }
-}
-
-@Composable
-fun CartHeaderView(
-    modifier: Modifier = Modifier,
-    state: CartViewModel.State
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "Total",
-            style = MaterialTheme.typography.h6
-        )
-        Text(
-            text = with(object : CurrencyRetriever {}) {
-                state.price.getWhitCurrencyFormat(state.currencyCode)
-            },
-            style = MaterialTheme.typography.h6
-        )
-    }
-}
-
-@Composable
-fun CartItemView(
-    modifier: Modifier = Modifier,
-    item: CartItem
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        AsyncImage(
-            modifier = Modifier
-                .clip(MaterialTheme.shapes.small)
-                .size(40.dp),
-            model = item.product.imageUrl,
-            contentScale = ContentScale.Crop,
-            contentDescription = null
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clip(MaterialTheme.shapes.large)
-                .background(MaterialTheme.colors.primary),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "x${item.quantity}",
-                color = MaterialTheme.colors.onPrimary,
-                style = MaterialTheme.typography.body2
-            )
-        }
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = item.product.name,
-            style = MaterialTheme.typography.body1
-        )
-        Spacer(
-            modifier = Modifier
-                .weight(1f, true)
-        )
-        Text(
-            text = with(object : CurrencyRetriever {}) {
-                item.product.price.getWhitCurrencyFormat(item.product.currencyCode)
-            }
-        )
-    }
-}
-
-@Composable
-@Preview
-fun CartItemViewPreview() {
-
 }
 
 @Composable

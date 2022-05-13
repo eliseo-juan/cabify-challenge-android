@@ -6,6 +6,7 @@ object Module {
     object Feature {
         const val store = ":featureStore"
         const val checkout = ":featureCheckout"
+        const val productDetail = ":featureProductDetail"
     }
 
     object Core {

@@ -5,12 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class NavigationManager {
 
-    var commands = MutableStateFlow(StoreNavigation.default)
+    var commands = MutableStateFlow<NavigationCommand>(StoreNavigation.default)
 
     fun navigate(
         directions: NavigationCommand
     ) {
         commands.value = directions
     }
-
 }

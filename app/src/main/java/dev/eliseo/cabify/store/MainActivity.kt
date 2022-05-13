@@ -9,17 +9,15 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
+import dev.eliseo.cabify.core.navigation.NavigationCommand
 import dev.eliseo.cabify.core.navigation.NavigationManager
 import dev.eliseo.cabify.core.navigation.directions.CheckoutNavigation
 import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation
 import dev.eliseo.cabify.core.navigation.directions.StoreNavigation
-import dev.eliseo.cabify.store.ui.checkout.CheckoutView
+import dev.eliseo.cabify.feature.checkout.CheckoutView
 import dev.eliseo.cabify.feature.productdetail.ProductDialogView
 import dev.eliseo.cabify.feature.store.StoreView
 import dev.eliseo.cabify.store.ui.theme.CabifyStoreTheme
@@ -51,11 +49,12 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             navigationManager.commands.collectAsState().value.also { command ->
-                if (command.destination.isNotEmpty()) {
-                    Log.d("NAVIGATION", "Navigating to ${command.destination}")
-                    Log.d("NAVIGATION", navController.toString())
-                    navController.navigate(command.destination)
-                    //navController.navigate(route = command.destination)
+                when {
+                    command is NavigationCommand.GoBack -> {
+                        navController.popBackStack()
+                    }
+                    command is NavigationCommand.Destination && command.destination.isNotEmpty() ->
+                        navController.navigate(command.destination)
                 }
             }
             CabifyStoreTheme {
@@ -70,12 +69,14 @@ class MainActivity : ComponentActivity() {
                         route = ProductDetailNavigation.route,
                         arguments = ProductDetailNavigation.arguments,
                     ) {
-                        dev.eliseo.cabify.feature.productdetail.ProductDialogView(
+                        ProductDialogView(
                             hiltViewModel(it)
                         )
                     }
+
                     composable(CheckoutNavigation.checkout.destination) {
-                        CheckoutView(navController = navController)
+                        CheckoutView(hiltViewModel(it))
+
                     }
                 }
             }

@@ -3,8 +3,6 @@ package dev.eliseo.cabify.data.repository
 import dev.eliseo.cabify.data.datasource.NetworkProductDatasource
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.repository.ProductRepository
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class ProductRepositoryImpl @Inject constructor(

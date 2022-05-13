@@ -1,3 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="store_title">Cabify Store</string>
+    <string name="store_cta_go_to_checkout">Go to checkout</string>
 </resources>

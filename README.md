@@ -1,48 +1,54 @@
 # Cabify Mobile Challenge
 
-Besides providing exceptional transportation services, Cabify also runs a physical store which sells Products.
+//TODO
 
-Our list of products looks like this:
+## Architecture
 
-``` 
-Code         | Name                |  Price
--------------------------------------------------
-VOUCHER      | Cabify Voucher      |   5.00€
-TSHIRT       | Cabify T-Shirt      |  20.00€
-MUG          | Cabify Coffee Mug   |   7.50€
-```
+### Modules
 
-Various departments have insisted on the following discounts:
+### MVI
 
- * The marketing department believes in 2-for-1 promotions (buy two of the same product, get one free), and would like to have a 2-for-1 special on `VOUCHER` items.
+### Compose
 
- * The CFO insists that the best way to increase sales is with discounts on bulk purchases (buying x or more of a product, the price of that product is reduced), and demands that if you buy 3 or more `TSHIRT` items, the price per unit should be 19.00€.
+### Composable Architecture for Navigation
 
-Cabify's checkout process allows for items to be scanned in any order, and should return the total amount to be paid.
+## Libraries
 
-Examples:
+I want to explain a bit about the libraries I used in this project and how:
 
-    Items: VOUCHER, TSHIRT, MUG
-    Total: 32.50€
+### Dependency Inversion
 
-    Items: VOUCHER, TSHIRT, VOUCHER
-    Total: 25.00€
+[Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+> Becoming the standard way of handling with coupling in Android. I previously used [Koin](https://insert-koin.io/) but Hilt is having more and more support from the community.
 
-    Items: TSHIRT, TSHIRT, TSHIRT, VOUCHER, TSHIRT
-    Total: 81.00€
+### Database
 
-    Items: VOUCHER, TSHIRT, VOUCHER, VOUCHER, MUG, TSHIRT, TSHIRT
-    Total: 74.50€
+[JetPack DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+> Yes, I know I've used a Preferences library as a BBDD, I would do it with [Room](https://developer.android.com/jetpack/androidx/releases/room), but I'm bored of using Room, so I have taken the opportunity of using JetPack DataStore as the first time.
 
+### Async Flow
 
-# To do
-- Implement an app where a user can pick products from a list and checkout them to get the resulting price. No need to implement any real payment system, but we do need a nice user experience where our customers can understand what items are they purchasing, the price and the discount we are applying.
-- You should fetch the list of products from [here](https://gist.githubusercontent.com/palcalde/6c19259bd32dd6aafa327fa557859c2f/raw/ba51779474a150ee4367cda4f4ffacdcca479887/Products.json).
+[Flow & Coroutines](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/)
+> The standard way of handling async calls and make a reactive app.
 
-# Considerations
-- Be aware that the discounts are going to change frequently. So the code should support that.
-- There is no need for a user login screen.
-- Be written as production-ready code. We would like you to build it in the same way as if you were going to publish to the store.
-- Consider explaning the solution and why certain things are included and others are left out.
-- Be written either in Swift or Kotlin, preferably in the latest stable version of the language.
-- If possible, use the latest stable version (no Betas) of Xcode or Android Studio.
+### Functional Programming
+
+[Arrow](https://github.com/arrow-kt/arrow)
+> I did not use this library for this tech test because the benefits of functional programing are more noticeable in medium and long term projects. Arrow is one of my favorite libraries to make kotlin something more functional.
+
+### Image Loader
+
+[Coil](https://github.com/coil-kt/coil)
+> Designed in Kotlin for Kotlin with good support for Compose. I used to use [Glide](https://github.com/bumptech/glide) but have been switching to Coil.
+
+### Serialization
+
+[Gson](https://github.com/google/gson)
+> One of the most popular JSON libraries for Android. But probably is time to move to [Moshi](https://github.com/square/moshi). I did not use it for this test because I want to evaluate the differences in depth.
+
+### Network
+
+[Retrofit](https://github.com/square/retrofit)
+> One of the most used libraries for network calls, I feel very confident with this library, and I use it in all my projects.
+
+## Testing

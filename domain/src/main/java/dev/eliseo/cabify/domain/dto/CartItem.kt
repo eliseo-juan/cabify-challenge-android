@@ -6,5 +6,7 @@ import dev.eliseo.cabify.domain.model.Product
 data class CartItem(
     val product: Product,
     val quantity: Int,
-    val discount: Discount?
+    val discount: Discount?,
+    val finalPrice: Double,
+    val withoutDiscountPrice: Double?
 )

@@ -1,10 +1,5 @@
 import dev.eliseo.cabify.buildsrc.Module
-import plugins.addCoreDependencies
-import plugins.addHiltDependencies
-import plugins.addComposeDependencies
-import plugins.addAndroidxLifecycleDependencies
-import plugins.addCoilDependencies
-import plugins.addTestDependencies
+import plugins.*
 
 plugins {
     id("com.android.library")

@@ -1,10 +1,5 @@
 import dev.eliseo.cabify.buildsrc.Module
-import plugins.addCoreDependencies
-import plugins.addComposeDependencies
-import plugins.addAndroidxLifecycleDependencies
-import plugins.addCoilDependencies
-import plugins.addHiltDependencies
-import plugins.addTestDependencies
+import plugins.*
 
 plugins {
     id("com.android.application")
@@ -34,5 +29,6 @@ dependencies {
     implementation(project(Module.Core.presentation))
     implementation(project(Module.Core.ds))
     implementation(project(Module.Feature.store))
-
+    implementation(project(Module.Feature.productDetail))
+    implementation(project(Module.Feature.checkout))
 }

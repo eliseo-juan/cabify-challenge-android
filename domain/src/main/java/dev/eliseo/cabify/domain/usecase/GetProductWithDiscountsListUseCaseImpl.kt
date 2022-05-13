@@ -4,8 +4,6 @@ import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.repository.DiscountRepository
 import dev.eliseo.cabify.domain.repository.ProductRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class GetProductWithDiscountsListUseCaseImpl(
     private val productRepository: ProductRepository,

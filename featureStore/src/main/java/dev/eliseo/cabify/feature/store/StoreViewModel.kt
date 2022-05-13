@@ -1,17 +1,13 @@
 package dev.eliseo.cabify.feature.store
 
-import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.eliseo.cabify.core.navigation.NavigationManager
+import dev.eliseo.cabify.core.navigation.directions.CheckoutNavigation
 import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
-import dev.eliseo.cabify.domain.repository.CartRepository
-import dev.eliseo.cabify.domain.usecase.GetProductUseCase
 import dev.eliseo.cabify.domain.usecase.GetProductWithDiscountsListUseCase
-import dev.eliseo.cabify.domain.usecase.GetProductWithDiscountsListUseCaseImpl
 import dev.eliseo.cabify.store.libbase.BaseViewModel
-import dev.eliseo.cabify.store.libbase.UiEffect
 import dev.eliseo.cabify.store.libbase.UiEvent
 import dev.eliseo.cabify.store.libbase.UiState
 import javax.inject.Inject
@@ -36,6 +32,9 @@ class StoreViewModel @Inject constructor(
                     ProductDetailNavigation.productDetailDialog(productId = event.product.code)
                 )
             }
+            Event.OnGoToCheckout -> navigationManager.navigate(
+                CheckoutNavigation.checkout
+            )
         }
     }
 

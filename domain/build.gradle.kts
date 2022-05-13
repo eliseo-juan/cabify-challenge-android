@@ -1,5 +1,5 @@
-import plugins.addHiltDependencies
 import plugins.addCoroutinesDependencies
+import plugins.addHiltDependencies
 
 plugins {
     id("com.android.library")

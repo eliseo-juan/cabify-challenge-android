@@ -1,7 +1,7 @@
-package dev.eliseo.cabify.core.presentation
+package dev.eliseo.cabify.core.presentation.retriever
 
 import java.text.NumberFormat
-import java.util.Currency
+import java.util.*
 
 interface CurrencyRetriever {
 

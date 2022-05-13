@@ -5,8 +5,10 @@ import dev.eliseo.cabify.core.navigation.NavigationCommand
 
 object CheckoutNavigation {
 
-    val checkout = object : NavigationCommand {
+    val checkout = object : NavigationCommand.Destination {
         override val arguments: List<NamedNavArgument> = emptyList()
         override val destination: String = "checkout"
     }
+
+    val pop = object : NavigationCommand.GoBack {}
 }

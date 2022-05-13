@@ -7,7 +7,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Remove
+import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dev.eliseo.cabify.core.ds.Counter
 import dev.eliseo.cabify.core.ds.Divider
-import dev.eliseo.cabify.core.presentation.CurrencyRetriever
-import dev.eliseo.cabify.core.presentation.DiscountTitleStringRetriever
-import dev.eliseo.cabify.domain.dto.CartItem
+import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
+import dev.eliseo.cabify.core.presentation.retriever.DiscountTitleStringRetriever
+import dev.eliseo.cabify.domain.dto.ProductDetails
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.store.libbase.ViewModelScreen
@@ -66,7 +69,7 @@ private fun ProductDialogView(
                 AsyncImage(
                     modifier = Modifier
                         .clip(MaterialTheme.shapes.large),
-                    model = state.cartItem?.product?.imageUrl,
+                    model = state.productDetails?.product?.imageUrl,
                     contentScale = ContentScale.Crop,
                     contentDescription = null
                 )
@@ -76,10 +79,10 @@ private fun ProductDialogView(
                         .align(Alignment.BottomEnd),
                     horizontalAlignment = Alignment.End
                 ) {
-                    PriceContainerView(product = state.cartItem?.product)
-                    if (state.cartItem?.discount != null) {
+                    PriceContainerView(product = state.productDetails?.product)
+                    if (state.productDetails?.discount != null) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        DiscountContainerView(discount = state.cartItem.discount!!)
+                        DiscountContainerView(discount = state.productDetails.discount!!)
                     }
                 }
             }
@@ -88,7 +91,7 @@ private fun ProductDialogView(
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth(),
-                text = state.cartItem?.product?.name ?: "",
+                text = state.productDetails?.product?.name ?: "",
                 style = MaterialTheme.typography.h5
             )
 
@@ -109,7 +112,7 @@ private fun ProductDialogView(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     modifier = Modifier,
-                    text = state.cartItem?.quantity?.toString() ?: "-",
+                    text = state.productDetails?.quantity?.toString() ?: "-",
                     style = MaterialTheme.typography.h6
                 )
                 Spacer(
@@ -140,9 +143,9 @@ fun PriceContainerView(
     product: Product?,
 ) {
     Text(
-        modifier = Modifier
+        modifier = modifier
             .clip(MaterialTheme.shapes.large)
-            .background(MaterialTheme.colors.onSurface)
+            .background(MaterialTheme.colors.surface)
             .padding(vertical = 8.dp, horizontal = 12.dp),
         text = with(object : CurrencyRetriever {}) {
             product?.price?.getWhitCurrencyFormat(
@@ -160,7 +163,7 @@ fun DiscountContainerView(
     discount: Discount
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .clip(MaterialTheme.shapes.large)
             .background(MaterialTheme.colors.primary)
             .padding(vertical = 8.dp, horizontal = 12.dp),
@@ -177,7 +180,7 @@ fun DiscountContainerView(
         Text(
             modifier = Modifier,
             text = with(object : DiscountTitleStringRetriever {}) {
-                discount.getTitle(LocalContext.current) ?: ""
+                discount.getTitle(LocalContext.current)
             },
             color = MaterialTheme.colors.onPrimary,
             style = MaterialTheme.typography.body2
@@ -190,7 +193,7 @@ fun DiscountContainerView(
 fun ProductDialogViewRender() {
     ProductDialogView(
         state = ProductDialogViewModel.State(
-            cartItem = CartItem(
+            productDetails = ProductDetails(
                 product = Product(
                     code = "TSHIRT",
                     name = "Cabify T-Shirt",

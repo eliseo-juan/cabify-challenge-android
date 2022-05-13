@@ -2,4 +2,5 @@
 <resources>
     <string name="discount_title_take_x_get_y">Buy %1$d and get %2$d more free</string>
     <string name="discount_title_discount_by_amount">Buy %1$d and get %2$d\%% off</string>
+    <string name="generic_total">Total</string>
 </resources>

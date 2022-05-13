@@ -1,9 +1,4 @@
-import plugins.addCoreDependencies
-import plugins.addHiltDependencies
-import plugins.addComposeDependencies
-import plugins.addAndroidxLifecycleDependencies
-import plugins.addTestDependencies
-import plugins.addCoroutinesDependencies
+import plugins.*
 
 plugins {
     id("com.android.library")

@@ -13,7 +13,7 @@ object ProductDetailNavigation {
         navArgument(KEY_PRODUCT_ID) { type = NavType.StringType }
     )
 
-    fun productDetailDialog(productId: String)  = object : NavigationCommand {
+    fun productDetailDialog(productId: String)  = object : NavigationCommand.Destination {
         override val arguments: List<NamedNavArgument> = ProductDetailNavigation.arguments
         override val destination: String = "productDetail/$productId"
     }

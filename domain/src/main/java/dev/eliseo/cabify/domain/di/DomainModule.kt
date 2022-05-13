@@ -1,4 +1,4 @@
-package dev.eliseo.cabify.store.ui.di
+package dev.eliseo.cabify.domain.di
 
 import dagger.Module
 import dagger.Provides

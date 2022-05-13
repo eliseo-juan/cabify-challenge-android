@@ -1,6 +1,5 @@
 package dev.eliseo.cabify.feature.store.cart
 
-import androidx.navigation.NavBackStackEntry
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.eliseo.cabify.core.navigation.NavigationManager
 import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation

@@ -1,30 +1,22 @@
 package dev.eliseo.cabify.feature.store
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.eliseo.cabify.core.ds.SheetIndicator
+import dev.eliseo.cabify.core.ds.TopBar
 import dev.eliseo.cabify.feature.store.cart.CartView
 import dev.eliseo.cabify.store.libbase.ViewModelScreen
 
@@ -47,23 +39,20 @@ private fun StoreView(
     state: StoreViewModel.State,
     events: (event: StoreViewModel.Event) -> Unit
 ) {
+
+    val bottomSheetState = rememberBottomSheetState(
+        if (state.products.isNotEmpty()) {
+            BottomSheetValue.Expanded
+        } else {
+            BottomSheetValue.Collapsed
+        }
+    )
     BottomSheetScaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier,
-                contentPadding = PaddingValues(0.dp),
-                contentColor = MaterialTheme.colors.primary,
-                backgroundColor = MaterialTheme.colors.surface
-            ) {
-                Text(
-                    modifier = Modifier
-                        .padding(16.dp),
-                    text = "Cabify Store",
-                )
-            }
+            TopBar(title = stringResource(id = R.string.store_title))
         },
         scaffoldState = rememberBottomSheetScaffoldState(
-            bottomSheetState = rememberBottomSheetState(BottomSheetValue.Expanded),
+            bottomSheetState = bottomSheetState,
         ),
         sheetContent = {
             CartView(viewModel = hiltViewModel())
@@ -76,7 +65,7 @@ private fun StoreView(
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = {
-                    Text("Ir al pago")
+                    Text(text = stringResource(id = R.string.store_cta_go_to_checkout))
                 },
                 icon = {
                     Icon(
@@ -111,8 +100,6 @@ private fun StoreView(
             }
         }
     }
-
-
 }
 
 @Preview(showBackground = true)

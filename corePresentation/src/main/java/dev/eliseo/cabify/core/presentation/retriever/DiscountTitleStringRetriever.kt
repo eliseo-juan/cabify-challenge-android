@@ -1,6 +1,7 @@
-package dev.eliseo.cabify.core.presentation
+package dev.eliseo.cabify.core.presentation.retriever
 
 import android.content.Context
+import dev.eliseo.cabify.core.presentation.R
 import dev.eliseo.cabify.domain.model.Discount
 
 interface DiscountTitleStringRetriever {
