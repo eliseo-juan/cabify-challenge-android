@@ -3,12 +3,20 @@
 This is a Technical Challenge for Cabify. Product specifications are detailed
 here: [CHALLENGE.md](.github/CHALLENGE.md)
 
+(You can directly download the apk from releases)
+
 # Solution
+
 
 I have solved this challenge with a very simple design, but with some important details in a Product
 level.
 
-The solution is
+The solution is based on 3 screens:
+1. **Store**: A list of Products with their discount label, including a cart updated in real time with prices and discounts.
+2. **Product Detail**: You can acces from Store, Cart and Checkout. It provides more information about the product, with discount details and you cand add or remove  cart product from here.
+3. **Checkout**: A list with cart products and suggestions to add products.
+
+Some screenshots:
 <p float="left">
   <img src=".github/screenshot/1store.png" width="200" />
   <img src=".github/screenshot/2product.png" width="200" /> 
