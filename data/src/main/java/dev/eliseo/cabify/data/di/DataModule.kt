@@ -17,10 +17,12 @@ import dev.eliseo.cabify.data.datasource.NetworkProductDatasource
 import dev.eliseo.cabify.data.repository.CartRepositoryImpl
 import dev.eliseo.cabify.data.repository.DiscountRepositoryImpl
 import dev.eliseo.cabify.data.repository.ProductRepositoryImpl
+import dev.eliseo.cabify.data.repository.UserRepositoryImpl
 import dev.eliseo.cabify.data.service.ProductAPIService
 import dev.eliseo.cabify.domain.repository.CartRepository
 import dev.eliseo.cabify.domain.repository.DiscountRepository
 import dev.eliseo.cabify.domain.repository.ProductRepository
+import dev.eliseo.cabify.domain.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -106,5 +108,12 @@ class DataModule {
         cartDatasource: DBCartDatasource
     ): CartRepository {
         return CartRepositoryImpl(cartDatasource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+    ): UserRepository {
+        return UserRepositoryImpl()
     }
 }

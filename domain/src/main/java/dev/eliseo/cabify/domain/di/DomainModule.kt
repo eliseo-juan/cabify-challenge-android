@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import dev.eliseo.cabify.domain.repository.CartRepository
 import dev.eliseo.cabify.domain.repository.DiscountRepository
 import dev.eliseo.cabify.domain.repository.ProductRepository
+import dev.eliseo.cabify.domain.repository.UserRepository
 import dev.eliseo.cabify.domain.usecase.*
 
 @Module
@@ -69,6 +70,8 @@ class DomainModule {
         )
 
     @Provides
-    fun provideGetSuggestionUseCase(): GetSuggestionUseCase =
-        GetSuggestionByMinValueUseCaseImpl()
+    fun provideGetSuggestionBySegmentServiceLocator(
+        userRepository: UserRepository
+    ): GetSuggestionBySegmentServiceLocator =
+        GetSuggestionBySegmentServiceLocatorImpl(userRepository)
 }
