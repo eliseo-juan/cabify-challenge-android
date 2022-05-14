@@ -3,7 +3,7 @@
 This is a Technical Challenge for Cabify. Product specifications are detailed
 here: [CHALLENGE.md](.github/CHALLENGE.md)
 
-## Solution
+# Solution
 
 I have solved this challenge with a very simple design, but with some important details in a Product
 level.
@@ -21,7 +21,7 @@ As you can check in the third screenshot, I'm showing suggestions to add a new p
 The algorithm is based in the following:
 
 1. Every product in cart that have a discount, could be a suggestion to reach the discount rule.
-2. From all the posible suggestions, it takes one or another based on different criteria:
+2. From all the possible suggestions, it takes one or another based on different criteria:
 
 * `GetSuggestionByMinValueUseCaseImpl`: It takes the one with lower cost for the user.
 * `GetSuggestionByMinObjectsUseCaseImpl`: It takes the one with less objects needed to add to cart.
@@ -43,7 +43,7 @@ Some behaviors have been simplified for this Tech test, for example:
   firebase, whatever)
 * Testing: I did not test for the whole project, I have only tested some parts as an example.
 
-## Architecture
+# Architecture
 
 This project has been developed following CLEAN and SOLID principles. 
 * Having a clear separation between layers, as you can see in Modules explanation.
@@ -51,7 +51,7 @@ This project has been developed following CLEAN and SOLID principles.
 * Using a composable pattern for navigation.
 
 ### Modules
-In order to have a good separation between layers, (trying to impress you with a fantastic example of overengineering). I have divided the different layers and features into modules, I'm not gonna explain every module, but all of them are connected with buildSrc, I find this way a super cool way of creating modules with a clear build.gradle, and syncrhonize project variables.
+In order to have a good separation between layers (trying to impress you with a fantastic example of overengineering), I have divided the different layers and features into modules, I'm not gonna explain each module, but all of them are connected with `buildSrc` plugin. I think that's a super cool way of creating modules with a clear `build.gradle`, and syncrhonize project variables and dependencies.
 
 ### MVI
 In my opinion one of the best architecture for using compose, and having a state that is the source of thruth for the UI.
@@ -62,18 +62,17 @@ The future and the present of modern Android development. With the adventages of
 I feel very confident with compose, I think it greatly reduces development times, and it allow to reuse views in a super easy way.
 
 ### Composable Architecture for Navigation
-Being honest, that's new for me. In other prohects I'm using compose, but always wrapped in fragments, with their own navigation and lifecycle.
+Being honest, that's new for me. In other projects I'm using compose, but always wrapped in fragments, with their own navigation and lifecycle.
 This Tech-test is the first time I have the opportunity of experiment with navigation between compose views. 
 My requirements for this research was:
 * Easy navigation between modules.
 * Navigation as decoupled as posible.
 * MVI-friendly.
+
 I'm very happy with the solution I've found:
 * `NavigationManager` has ` MutableStateFlow<NavigationCommand>` listened from `MainActivity`, and every call will be forwarded to navigation to other view using [Jetpack Compose Navigation](https://developer.android.com/jetpack/compose/navigation)
 
-## Decisions for this Tech test:
-
-## Libraries
+# Libraries
 
 I want to explain a bit about the libraries I used in this project and how:
 
@@ -110,10 +109,12 @@ it in all my projects.
 
 ### Functional Programming [Arrow](https://github.com/arrow-kt/arrow)
 
-*I did not use this library* for this tech test because the benefits of functional programing are
+**I did not use this library** for this tech test because the benefits of functional programing are
 more noticeable in medium and long term projects. Arrow is one of my favorite libraries to make
 kotlin something more functional.
 
 ### Testing Mock: [Mockk](https://mockk.io/)
+
+I don't know why but I have a slight preference for Mockk over Mockito.
 
 
