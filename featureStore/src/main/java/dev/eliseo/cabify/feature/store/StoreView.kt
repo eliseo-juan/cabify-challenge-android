@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.eliseo.cabify.core.ds.TopBar
 import dev.eliseo.cabify.feature.store.cart.CartView
-import dev.eliseo.cabify.store.libbase.ViewModelScreen
+import dev.eliseo.cabify.core.presentation.base.ViewModelScreen
 
 @Composable
 fun StoreView(

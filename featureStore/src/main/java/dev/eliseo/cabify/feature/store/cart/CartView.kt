@@ -4,10 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -15,7 +12,7 @@ import dev.eliseo.cabify.core.ds.Divider
 import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
 import dev.eliseo.cabify.core.presentation.view.CartItemView
 import dev.eliseo.cabify.core.presentation.view.SummaryView
-import dev.eliseo.cabify.store.libbase.ViewModelScreen
+import dev.eliseo.cabify.core.presentation.base.ViewModelScreen
 
 @Composable
 fun CartView(

@@ -74,4 +74,10 @@ class DomainModule {
         userRepository: UserRepository
     ): GetSuggestionBySegmentServiceLocator =
         GetSuggestionBySegmentServiceLocatorImpl(userRepository)
+
+    @Provides
+    fun provideGetSuggestionUseCase(
+        getSuggestionBySegmentServiceLocator: GetSuggestionBySegmentServiceLocator
+    ): GetSuggestionUseCase =
+        getSuggestionBySegmentServiceLocator()
 }

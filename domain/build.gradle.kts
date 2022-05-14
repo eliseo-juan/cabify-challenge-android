@@ -1,5 +1,6 @@
 import plugins.addCoroutinesDependencies
 import plugins.addHiltDependencies
+import plugins.addTestDependencies
 
 plugins {
     id("com.android.library")
@@ -8,3 +9,5 @@ plugins {
 
 addHiltDependencies()
 addCoroutinesDependencies()
+
+addTestDependencies()

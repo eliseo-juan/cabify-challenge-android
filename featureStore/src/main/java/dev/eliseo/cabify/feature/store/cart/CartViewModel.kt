@@ -7,16 +7,16 @@ import dev.eliseo.cabify.domain.dto.CartItem
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.usecase.GetCartListUseCase
 import dev.eliseo.cabify.domain.usecase.GetCartPriceUseCase
-import dev.eliseo.cabify.store.libbase.BaseViewModel
-import dev.eliseo.cabify.store.libbase.UiEvent
-import dev.eliseo.cabify.store.libbase.UiState
+import dev.eliseo.cabify.core.presentation.base.BaseViewModel
+import dev.eliseo.cabify.core.presentation.base.UiEvent
+import dev.eliseo.cabify.core.presentation.base.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 class CartViewModel @Inject constructor(
     private val navigationManager: NavigationManager,
-    val getCartListUseCase: GetCartListUseCase,
-    val getCartPriceUseCase: GetCartPriceUseCase
+    private val getCartListUseCase: GetCartListUseCase,
+    private val getCartPriceUseCase: GetCartPriceUseCase
 ) : BaseViewModel<CartViewModel.State, CartViewModel.Event>() {
 
     override fun createInitialState(): State = State()
@@ -35,7 +35,7 @@ class CartViewModel @Inject constructor(
 
     override suspend fun handleEvent(event: Event) {
         when (event) {
-            is Event.OnItemClicked -> navigationManager.navigate(
+                is Event.OnItemClicked -> navigationManager.navigate(
                 ProductDetailNavigation.productDetailDialog(productId = event.product.code)
             )
         }
@@ -47,7 +47,7 @@ class CartViewModel @Inject constructor(
         val currencyCode: String = "EUR"
     ) : UiState
 
-    sealed class Event: UiEvent{
+    sealed class Event: UiEvent {
         data class OnItemClicked(val product: Product) : Event()
     }
 }

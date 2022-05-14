@@ -13,17 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import dev.eliseo.cabify.core.ds.Divider
 import dev.eliseo.cabify.core.ds.TopBar
 import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
 import dev.eliseo.cabify.core.presentation.view.CartItemView
-import dev.eliseo.cabify.core.presentation.view.DiscountContainerView
 import dev.eliseo.cabify.core.presentation.view.SummaryView
 import dev.eliseo.cabify.domain.model.Suggestion
-import dev.eliseo.cabify.store.libbase.ViewModelScreen
+import dev.eliseo.cabify.core.presentation.base.ViewModelScreen
 
 @Composable
 fun CheckoutView(

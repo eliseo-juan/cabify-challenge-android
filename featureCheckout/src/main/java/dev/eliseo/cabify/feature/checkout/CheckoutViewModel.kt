@@ -6,22 +6,19 @@ import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation
 import dev.eliseo.cabify.domain.dto.CartItem
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.model.Suggestion
-import dev.eliseo.cabify.domain.usecase.AddProductToCartUseCase
-import dev.eliseo.cabify.domain.usecase.GetCartListUseCase
-import dev.eliseo.cabify.domain.usecase.GetCartPriceUseCase
-import dev.eliseo.cabify.domain.usecase.GetSuggestionBySegmentServiceLocator
-import dev.eliseo.cabify.store.libbase.BaseViewModel
-import dev.eliseo.cabify.store.libbase.UiEvent
-import dev.eliseo.cabify.store.libbase.UiState
+import dev.eliseo.cabify.domain.usecase.*
+import dev.eliseo.cabify.core.presentation.base.BaseViewModel
+import dev.eliseo.cabify.core.presentation.base.UiEvent
+import dev.eliseo.cabify.core.presentation.base.UiState
 import javax.inject.Inject
 
 @HiltViewModel
 class CheckoutViewModel @Inject constructor(
     private val navigationManager: NavigationManager,
-    val getCartListUseCase: GetCartListUseCase,
-    val getCartPriceUseCase: GetCartPriceUseCase,
-    val getSuggestionBySegmentServiceLocator: GetSuggestionBySegmentServiceLocator,
-    val addProductToCartUseCase: AddProductToCartUseCase
+    private val getCartListUseCase: GetCartListUseCase,
+    private val getCartPriceUseCase: GetCartPriceUseCase,
+    private val getSuggestionUseCase: GetSuggestionUseCase,
+    private val addProductToCartUseCase: AddProductToCartUseCase
 ) : BaseViewModel<CheckoutViewModel.State, CheckoutViewModel.Event>() {
 
     override fun createInitialState(): State = State()
@@ -33,7 +30,7 @@ class CheckoutViewModel @Inject constructor(
                 copy(
                     cartItems = it,
                     price = getCartPriceUseCase(it),
-                    suggestion = getSuggestionBySegmentServiceLocator().invoke(it)
+                    suggestion = getSuggestionUseCase(it)
                 )
             }
         }

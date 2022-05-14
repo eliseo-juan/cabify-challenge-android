@@ -4,11 +4,23 @@ This is a Technical Challenge for Cabify.
 Product specifications are detailed here: [CHALLENGE.md](.github/CHALLENGE.md)
 
 ## Solution
+I have solved this challenge with a very simple design, but with some important details in a Product level.
+
+The solution is 
 <p float="left">
   <img src=".github/screenshot/1store.png" width="200" />
   <img src=".github/screenshot/2product.png" width="200" /> 
   <img src=".github/screenshot/3checkout.png" width="200" />
 </p>
+
+### Test A/B
+
+
+### Important considerations:
+Some behaviors have been simplified for this Tech test, for example:
+* `NetworkDiscountDatasource`: should get information about the discounts from the server.
+* `UserRepositoryImpl`: should get information about the user segments from a datasource (server, firebase, whatever)
+* Testing: I did not test for the whole project, I have only tested some parts as an example.
 
 ## Architecture
 

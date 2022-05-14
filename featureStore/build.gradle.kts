@@ -8,6 +8,7 @@ plugins {
 }
 
 addCoreDependencies()
+addCoroutinesDependencies()
 addHiltDependencies()
 addComposeDependencies()
 addAndroidxLifecycleDependencies()
@@ -16,7 +17,6 @@ addCoilDependencies()
 addTestDependencies()
 
 dependencies {
-    implementation(project(Module.libBase))
     implementation(project(Module.Core.ds))
     implementation(project(Module.Core.domain))
     implementation(project(Module.Core.navigation))

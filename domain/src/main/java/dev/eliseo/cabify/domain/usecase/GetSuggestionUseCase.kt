@@ -13,7 +13,7 @@ interface GetSuggestionUseCase {
                 cartItem.discount.minNumberOfProducts - cartItem.quantity
             }
             is Discount.TakeXGetY -> {
-                cartItem.discount.numberOfProduts + cartItem.discount.numberOfGifts - cartItem.quantity
+                cartItem.discount.numberOfPaidProduts + cartItem.discount.numberOfGifts - cartItem.quantity
             }
             null -> 0
         }

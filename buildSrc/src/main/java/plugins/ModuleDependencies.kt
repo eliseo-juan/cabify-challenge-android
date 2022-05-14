@@ -41,6 +41,7 @@ fun Project.addCoroutinesDependencies() {
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
     }
 }
 
@@ -55,6 +56,7 @@ fun Project.addComposeDependencies() {
         implementation("androidx.compose.material:material-icons-extended:${Version.compose}")
         implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.7-alpha")
         debugImplementation("androidx.compose.ui:ui-tooling:${Version.compose}")
+        androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Version.compose}")
     }
 }
 
@@ -106,6 +108,7 @@ fun Project.addTestDependencies() {
         testImplementation("junit:junit:4.13.2")
         androidTestImplementation("androidx.test.ext:junit:1.1.3")
         androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-        androidTestImplementation("androidx.compose.ui:ui-test-junit4:${Version.compose}")
+        testImplementation("io.mockk:mockk:1.12.4")
+        androidTestImplementation("io.mockk:mockk-android:1.12.4")
     }
 }

@@ -10,25 +10,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import dev.eliseo.cabify.core.ds.Counter
 import dev.eliseo.cabify.core.ds.Divider
 import dev.eliseo.cabify.core.presentation.retriever.CurrencyRetriever
-import dev.eliseo.cabify.core.presentation.retriever.DiscountTitleStringRetriever
 import dev.eliseo.cabify.core.presentation.view.DiscountContainerView
 import dev.eliseo.cabify.domain.dto.ProductDetails
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
-import dev.eliseo.cabify.store.libbase.ViewModelScreen
+import dev.eliseo.cabify.core.presentation.base.ViewModelScreen
 
 @Composable
 fun ProductDialogView(

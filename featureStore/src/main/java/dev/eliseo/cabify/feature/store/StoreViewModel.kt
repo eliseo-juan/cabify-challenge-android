@@ -7,9 +7,9 @@ import dev.eliseo.cabify.core.navigation.directions.ProductDetailNavigation
 import dev.eliseo.cabify.domain.model.Discount
 import dev.eliseo.cabify.domain.model.Product
 import dev.eliseo.cabify.domain.usecase.GetProductWithDiscountsListUseCase
-import dev.eliseo.cabify.store.libbase.BaseViewModel
-import dev.eliseo.cabify.store.libbase.UiEvent
-import dev.eliseo.cabify.store.libbase.UiState
+import dev.eliseo.cabify.core.presentation.base.BaseViewModel
+import dev.eliseo.cabify.core.presentation.base.UiEvent
+import dev.eliseo.cabify.core.presentation.base.UiState
 import javax.inject.Inject
 
 @HiltViewModel

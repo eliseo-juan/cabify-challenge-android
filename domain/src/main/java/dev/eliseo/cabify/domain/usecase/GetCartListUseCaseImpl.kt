@@ -62,10 +62,10 @@ class GetCartListUseCaseImpl @Inject constructor(
                 }
             }
             is Discount.TakeXGetY -> {
-                val blockSize: Int = (discount.numberOfProduts + discount.numberOfGifts)
+                val blockSize: Int = (discount.numberOfPaidProduts + discount.numberOfGifts)
                 val numberOfBlocks: Int = quantity / blockSize
                 val rest = quantity % blockSize
-                return numberOfBlocks * product.price * discount.numberOfProduts + rest * product.price
+                return numberOfBlocks * product.price * discount.numberOfPaidProduts + rest * product.price
             }
         }
     }

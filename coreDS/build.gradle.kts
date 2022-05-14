@@ -1,6 +1,7 @@
 import plugins.addComposeDependencies
 import plugins.addCoreDependencies
 import plugins.addHiltDependencies
+import plugins.addTestDependencies
 
 plugins {
     id("com.android.library")
@@ -11,3 +12,5 @@ plugins {
 addCoreDependencies()
 addHiltDependencies()
 addComposeDependencies()
+
+addTestDependencies()

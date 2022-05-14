@@ -7,9 +7,9 @@ import dev.eliseo.cabify.domain.dto.ProductDetails
 import dev.eliseo.cabify.domain.usecase.AddProductToCartUseCase
 import dev.eliseo.cabify.domain.usecase.GetCartListItemUseCase
 import dev.eliseo.cabify.domain.usecase.RemoveProductToCartUseCase
-import dev.eliseo.cabify.store.libbase.BaseViewModel
-import dev.eliseo.cabify.store.libbase.UiEvent
-import dev.eliseo.cabify.store.libbase.UiState
+import dev.eliseo.cabify.core.presentation.base.BaseViewModel
+import dev.eliseo.cabify.core.presentation.base.UiEvent
+import dev.eliseo.cabify.core.presentation.base.UiState
 import javax.inject.Inject
 
 @HiltViewModel

@@ -2,7 +2,6 @@ rootProject.name = "CabifyStore"
 include ':app'
 include ':domain'
 include ':data'
-include ':libBase'
 include ':coreDS'
 include ':featureStore'
 include ':coreNavigation'

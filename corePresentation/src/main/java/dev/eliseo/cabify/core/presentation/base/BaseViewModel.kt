@@ -1,4 +1,4 @@
-package dev.eliseo.cabify.store.libbase
+package dev.eliseo.cabify.core.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
